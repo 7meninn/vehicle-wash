@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../features/authentication/presentation/pages/splash_screen.dart';
 import '../features/authentication/presentation/pages/login_screen.dart';
 import '../features/authentication/presentation/pages/otp_screen.dart';
+import '../features/home/presentation/pages/home_screen.dart';
 import '../features/vehicle/presentation/pages/vehicle_list_screen.dart';
 import '../features/vehicle/presentation/pages/add_vehicle_screen.dart';
 import '../features/address/presentation/pages/address_list_screen.dart';
@@ -11,6 +12,8 @@ import '../features/booking/presentation/pages/select_vehicle_screen.dart';
 import '../features/booking/presentation/pages/select_address_screen.dart';
 import '../features/booking/presentation/pages/select_time_screen.dart';
 import '../features/booking/presentation/pages/price_estimate_screen.dart';
+import '../features/booking/presentation/pages/booking_confirmed_screen.dart';
+import '../features/payment/presentation/pages/mock_payment_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -32,29 +35,7 @@ final GoRouter appRouter = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (context, state) => Scaffold(
-        appBar: AppBar(title: const Text('Home')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () => context.push('/booking/select-vehicle'),
-                child: const Text('Book a Wash'),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () => context.push('/vehicles'),
-                child: const Text('My Vehicles'),
-              ),
-              ElevatedButton(
-                onPressed: () => context.push('/addresses'),
-                child: const Text('My Addresses'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
       path: '/vehicles',
@@ -87,6 +68,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/booking/estimate',
       builder: (context, state) => const PriceEstimateScreen(),
+    ),
+    GoRoute(
+      path: '/booking/confirmed',
+      builder: (context, state) => const BookingConfirmedScreen(),
+    ),
+    GoRoute(
+      path: '/payment/mock',
+      builder: (context, state) => const MockPaymentScreen(),
     ),
   ],
 );

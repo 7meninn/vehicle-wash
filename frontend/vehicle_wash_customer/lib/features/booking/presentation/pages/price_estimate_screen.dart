@@ -57,10 +57,7 @@ class PriceEstimateScreen extends StatelessWidget {
               VerdantButton(
                 label: 'Confirm Booking',
                 onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Booking Confirmed!')),
-                  );
-                  context.go('/home');
+                  context.push('/payment/mock');
                 },
               ),
             ],
