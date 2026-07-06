@@ -172,14 +172,16 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
             children: [
               Expanded(
                 child: VerdantButton(
-                  label: 'Accept',
-                  onPressed: () {},
+                  label: 'View Request',
+                  onPressed: () {
+                    context.push('/assignment/incoming');
+                  },
                 ),
               ),
               const SizedBox(width: VerdantSpacing.gap),
               Expanded(
                 child: VerdantButton(
-                  label: 'Decline',
+                  label: 'Dismiss',
                   variant: VerdantButtonVariant.secondary,
                   onPressed: () {},
                 ),

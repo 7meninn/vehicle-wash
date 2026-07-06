@@ -6,6 +6,8 @@ import '../features/authentication/presentation/pages/otp_screen.dart';
 import '../features/onboarding/presentation/pages/onboarding_screen.dart';
 import '../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../features/availability/presentation/pages/service_areas_screen.dart';
+import '../features/assignment/presentation/pages/incoming_request_screen.dart';
+import '../features/job/presentation/pages/current_job_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -36,6 +38,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/availability/service-areas',
       builder: (context, state) => const ServiceAreasScreen(),
+    ),
+    GoRoute(
+      path: '/assignment/incoming',
+      builder: (context, state) => const IncomingRequestScreen(),
+    ),
+    GoRoute(
+      path: '/job/current',
+      builder: (context, state) => const CurrentJobScreen(),
     ),
   ],
 );
