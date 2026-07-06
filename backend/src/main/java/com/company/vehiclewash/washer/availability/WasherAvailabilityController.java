@@ -28,8 +28,8 @@ public class WasherAvailabilityController {
         return ResponseEntity.ok(ApiResponse.success(response));
     }
 
-    // Mapping to POST as explicitly requested, though standard REST might use PUT
-    @PostMapping("/me/availability")
+    // Standard REST uses PUT for updates
+    @PutMapping("/me/availability")
     public ResponseEntity<ApiResponse<Void>> updateAvailability(@Valid @RequestBody UpdateAvailabilityRequest request) {
         availabilityService.updateAvailability(request);
         return ResponseEntity.ok(ApiResponse.success(null));

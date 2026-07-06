@@ -32,7 +32,7 @@ public class MediaService {
                 .orElseThrow(() -> new RuntimeException("Booking not found"));
 
         if (!washerId.equals(booking.getAssignedWasherId())) {
-            throw new RuntimeException("Unauthorized: Not assigned to this booking");
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.FORBIDDEN, "Unauthorized: Not assigned to this booking");
         }
 
         MediaType mediaType;

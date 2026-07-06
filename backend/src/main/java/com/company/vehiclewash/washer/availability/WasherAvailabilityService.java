@@ -43,11 +43,11 @@ public class WasherAvailabilityService {
         LocalDate today = LocalDate.now();
 
         if (request.getDate().isBefore(today)) {
-            throw new RuntimeException("Cannot modify availability for past dates");
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Cannot modify availability for past dates");
         }
 
         if (request.getDate().isAfter(today.plusDays(30))) {
-            throw new RuntimeException("Maximum future window is 30 Days");
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Maximum future window is 30 Days");
         }
 
         for (SlotAvailabilityRequest slotRequest : request.getSlots()) {
