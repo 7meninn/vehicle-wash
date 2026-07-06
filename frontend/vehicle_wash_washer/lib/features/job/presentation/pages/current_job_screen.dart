@@ -2,8 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
 
-class CurrentJobScreen extends StatelessWidget {
+enum JobStatus { assigned, onTheWay, washStarted }
+
+class CurrentJobScreen extends StatefulWidget {
   const CurrentJobScreen({super.key});
+
+  @override
+  State<CurrentJobScreen> createState() => _CurrentJobScreenState();
+}
+
+class _CurrentJobScreenState extends State<CurrentJobScreen> {
+  JobStatus _status = JobStatus.assigned;
+
+  void _handleAction() {
+    setState(() {
+      if (_status == JobStatus.assigned) {
+        _status = JobStatus.onTheWay;
+      } else if (_status == JobStatus.onTheWay) {
+        _status = JobStatus.washStarted;
+      } else if (_status == JobStatus.washStarted) {
+        context.push('/job/media-upload');
+      }
+    });
+  }
+
+  String _getButtonLabel() {
+    switch (_status) {
+      case JobStatus.assigned:
+        return 'Start Navigation';
+      case JobStatus.onTheWay:
+        return 'Arrived - Start Wash';
+      case JobStatus.washStarted:
+        return 'Finish & Upload Photos';
+    }
+  }
+
+  String _getStatusText() {
+    switch (_status) {
+      case JobStatus.assigned:
+        return 'Pending Arrival';
+      case JobStatus.onTheWay:
+        return 'On the way';
+      case JobStatus.washStarted:
+        return 'Washing in progress';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +64,22 @@ class CurrentJobScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Status Badge
+              Center(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: VerdantColors.warmSand.withOpacity(0.2),
+                    borderRadius: VerdantRadius.pillRadius,
+                  ),
+                  child: Text(
+                    _getStatusText().toUpperCase(),
+                    style: VerdantTypography.labelMedium.copyWith(color: VerdantColors.warmSand),
+                  ),
+                ),
+              ),
+              const SizedBox(height: VerdantSpacing.gap * 2),
+              
               // Mock Map placeholder
               Container(
                 height: 200,
@@ -89,13 +148,8 @@ class CurrentJobScreen extends StatelessWidget {
               const SizedBox(height: VerdantSpacing.sectionPadding),
               
               VerdantButton(
-                label: 'Complete Wash',
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Job marked as completed!')),
-                  );
-                  context.go('/dashboard');
-                },
+                label: _getButtonLabel(),
+                onPressed: _handleAction,
               ),
             ],
           ),

@@ -8,6 +8,8 @@ import '../features/dashboard/presentation/pages/dashboard_screen.dart';
 import '../features/availability/presentation/pages/service_areas_screen.dart';
 import '../features/assignment/presentation/pages/incoming_request_screen.dart';
 import '../features/job/presentation/pages/current_job_screen.dart';
+import '../features/job/presentation/pages/media_upload_screen.dart';
+import '../features/job/presentation/pages/job_summary_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -46,6 +48,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/job/current',
       builder: (context, state) => const CurrentJobScreen(),
+    ),
+    GoRoute(
+      path: '/job/media-upload',
+      builder: (context, state) => const MediaUploadScreen(),
+    ),
+    GoRoute(
+      path: '/job/summary',
+      builder: (context, state) => const JobSummaryScreen(),
     ),
   ],
 );
