@@ -5,6 +5,7 @@ import '../features/authentication/presentation/pages/login_screen.dart';
 import '../features/authentication/presentation/pages/otp_screen.dart';
 import '../features/onboarding/presentation/pages/onboarding_screen.dart';
 import '../features/dashboard/presentation/pages/dashboard_screen.dart';
+import '../features/availability/presentation/pages/service_areas_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -31,6 +32,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/dashboard',
       builder: (context, state) => const DashboardScreen(),
+    ),
+    GoRoute(
+      path: '/availability/service-areas',
+      builder: (context, state) => const ServiceAreasScreen(),
     ),
   ],
 );
