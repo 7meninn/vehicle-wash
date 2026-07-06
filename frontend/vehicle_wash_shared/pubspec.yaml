@@ -6,3 +6,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  dio: ^5.4.0
+  flutter_secure_storage: ^9.0.0
+  flutter_riverpod: ^2.4.9
+  json_annotation: ^4.8.1
