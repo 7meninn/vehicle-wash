@@ -10,6 +10,9 @@ import '../features/assignment/presentation/pages/incoming_request_screen.dart';
 import '../features/job/presentation/pages/current_job_screen.dart';
 import '../features/job/presentation/pages/media_upload_screen.dart';
 import '../features/job/presentation/pages/job_summary_screen.dart';
+import '../features/profile/presentation/pages/profile_screen.dart';
+import '../features/earnings/presentation/pages/earnings_screen.dart';
+import '../features/history/presentation/pages/history_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -56,6 +59,18 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/job/summary',
       builder: (context, state) => const JobSummaryScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/earnings',
+      builder: (context, state) => const EarningsScreen(),
+    ),
+    GoRoute(
+      path: '/history',
+      builder: (context, state) => const HistoryScreen(),
     ),
   ],
 );

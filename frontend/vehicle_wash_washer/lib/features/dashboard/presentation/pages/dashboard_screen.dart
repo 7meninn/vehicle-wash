@@ -21,7 +21,9 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.person),
-            onPressed: () {},
+            onPressed: () {
+              context.push('/profile');
+            },
           ),
         ],
       ),
@@ -40,6 +42,13 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
               _buildJobCard('Premium Wash', '10:00 AM', '123 Main St, Springfield'),
               const SizedBox(height: VerdantSpacing.base),
               _buildJobCard('Standard Wash', '01:00 PM', '456 Elm St, Springfield'),
+              const SizedBox(height: VerdantSpacing.base),
+              Center(
+                child: TextButton(
+                  onPressed: () => context.push('/history'),
+                  child: const Text('View All History'),
+                ),
+              ),
               
               const SizedBox(height: VerdantSpacing.gap * 2),
               _buildSectionHeader('Booking Requests'),
@@ -109,22 +118,25 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
   }
 
   Widget _buildEarningsSummary() {
-    return VerdantCard(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'TODAY\'s EARNINGS',
-            style: VerdantTypography.labelMedium,
-          ),
-          const SizedBox(height: VerdantSpacing.base),
-          Text(
-            '\$124.50',
-            style: VerdantTypography.displayMedium.copyWith(
-              color: VerdantColors.warmSand,
+    return GestureDetector(
+      onTap: () => context.push('/earnings'),
+      child: VerdantCard(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'TODAY\'s EARNINGS',
+              style: VerdantTypography.labelMedium,
             ),
-          ),
-        ],
+            const SizedBox(height: VerdantSpacing.base),
+            Text(
+              '\$124.50',
+              style: VerdantTypography.displayMedium.copyWith(
+                color: VerdantColors.warmSand,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

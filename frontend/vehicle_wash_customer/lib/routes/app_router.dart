@@ -14,6 +14,7 @@ import '../features/booking/presentation/pages/select_time_screen.dart';
 import '../features/booking/presentation/pages/price_estimate_screen.dart';
 import '../features/booking/presentation/pages/booking_confirmed_screen.dart';
 import '../features/payment/presentation/pages/mock_payment_screen.dart';
+import '../features/profile/presentation/pages/profile_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -76,6 +77,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/payment/mock',
       builder: (context, state) => const MockPaymentScreen(),
+    ),
+    GoRoute(
+      path: '/profile',
+      builder: (context, state) => const ProfileScreen(),
     ),
   ],
 );
