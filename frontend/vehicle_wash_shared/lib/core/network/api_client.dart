@@ -1,5 +1,21 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+String _getBaseUrl() {
+  if (kIsWeb) return 'http://localhost:8080/api/v1';
+  if (Platform.environment.containsKey('FLUTTER_TEST')) {
+    if (Platform.isAndroid) {
+      return 'http://10.0.2.2:8080/api/v1';
+    }
+    return 'http://localhost:8080/api/v1';
+  }
+  if (Platform.isAndroid) {
+    return 'http://10.0.2.2:8080/api/v1';
+  }
+  return 'http://localhost:8080/api/v1';
+}
 
 class ApiClient {
   final Dio _dio;
@@ -7,10 +23,10 @@ class ApiClient {
 
   ApiClient({
     required FlutterSecureStorage storage,
-    String baseUrl = 'https://api.vehiclewash.mock',
+    String? baseUrl,
   })  : _storage = storage,
         _dio = Dio(BaseOptions(
-          baseUrl: baseUrl,
+          baseUrl: baseUrl ?? _getBaseUrl(),
           connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 10),
         )) {
@@ -33,35 +49,12 @@ class ApiClient {
     );
   }
 
-  // Mocked OTP logic since backend is not ready
   Future<Response> requestOtp(String mobileNumber) async {
-    await Future.delayed(const Duration(seconds: 1));
-    return Response(
-      requestOptions: RequestOptions(path: '/auth/request-otp'),
-      statusCode: 200,
-      data: {'message': 'OTP sent successfully'},
-    );
+    return _dio.post('/auth/request-otp', data: {'mobileNumber': mobileNumber});
   }
 
   Future<Response> verifyOtp(String mobileNumber, String otp) async {
-    await Future.delayed(const Duration(seconds: 1));
-    if (otp == '123456') { // Mock logic
-      return Response(
-        requestOptions: RequestOptions(path: '/auth/verify-otp'),
-        statusCode: 200,
-        data: {
-          'access_token': 'mock_access_token',
-          'refresh_token': 'mock_refresh_token',
-          'user': {'id': '1', 'role': 'customer'}
-        },
-      );
-    } else {
-      return Response(
-        requestOptions: RequestOptions(path: '/auth/verify-otp'),
-        statusCode: 400,
-        data: {'message': 'Invalid OTP'},
-      );
-    }
+    return _dio.post('/auth/verify-otp', data: {'mobileNumber': mobileNumber, 'otp': otp});
   }
 
   Dio get dio => _dio;
