@@ -1,51 +1,36 @@
 package com.company.vehiclewash.washer.profile;
 
 import com.company.vehiclewash.common.response.ApiResponse;
-import com.company.vehiclewash.security.SecurityUtils;
-import com.company.vehiclewash.washer.entity.Washer;
-import com.company.vehiclewash.washer.repository.WasherRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/washers")
 public class WasherProfileController {
 
-    private final WasherRepository washerRepository;
-    private final com.company.vehiclewash.auth.repository.UserRepository userRepository;
+    private final WasherProfileService washerProfileService;
 
-    public WasherProfileController(WasherRepository washerRepository, com.company.vehiclewash.auth.repository.UserRepository userRepository) {
-        this.washerRepository = washerRepository;
-        this.userRepository = userRepository;
+    public WasherProfileController(WasherProfileService washerProfileService) {
+        this.washerProfileService = washerProfileService;
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<Map<String, Object>>> getProfile() {
-        com.company.vehiclewash.auth.entity.User user = userRepository.findById(SecurityUtils.getCurrentWasherId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Washer washer = washerRepository.findByMobileNumber(user.getMobileNumber())
-                .orElseThrow(() -> new RuntimeException("Washer not found"));
-                
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", washer.getId());
-        data.put("fullName", washer.getFullName());
-        data.put("mobileNumber", washer.getMobileNumber());
-        data.put("verificationStatus", washer.getVerificationStatus());
-        data.put("averageRating", washer.getAverageRating());
-        data.put("trustScore", washer.getTrustScore());
-        data.put("totalCompletedJobs", washer.getTotalCompletedJobs());
-        
-        Map<String, Object> homeBase = new HashMap<>();
-        homeBase.put("address", washer.getHomeAddress());
-        homeBase.put("latitude", washer.getHomeLatitude());
-        homeBase.put("longitude", washer.getHomeLongitude());
-        data.put("homeBase", homeBase);
+    @PreAuthorize("hasRole('WASHER')")
+    public ResponseEntity<ApiResponse<WasherProfileResponse>> getProfile() {
+        return ResponseEntity.ok(ApiResponse.success(washerProfileService.getProfile()));
+    }
 
-        return ResponseEntity.ok(ApiResponse.success(data));
+    @PutMapping("/me")
+    @PreAuthorize("hasRole('WASHER')")
+    public ResponseEntity<ApiResponse<WasherProfileResponse>> updateProfile(@Valid @RequestBody UpdateWasherProfileRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(washerProfileService.updateProfile(request)));
+    }
+
+    @PutMapping("/me/home-base")
+    @PreAuthorize("hasRole('WASHER')")
+    public ResponseEntity<ApiResponse<WasherProfileResponse>> updateHomeBase(@Valid @RequestBody UpdateHomeBaseRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(washerProfileService.updateHomeBase(request)));
     }
 }
