@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:vehicle_wash_customer/main.dart' as app;
@@ -13,7 +14,7 @@ void main() {
     expect(find.text('Welcome'), findsOneWidget);
     
     // Enter mobile number
-    await tester.enterText(find.bySemanticsLabel('Mobile Number'), '+1234567890');
+    await tester.enterText(find.byType(TextField), '1234567890');
     await tester.pumpAndSettle();
     
     // Tap Continue
@@ -24,7 +25,7 @@ void main() {
     expect(find.text('Verification'), findsOneWidget);
     
     // Enter OTP
-    await tester.enterText(find.bySemanticsLabel('OTP Code'), '123456');
+    await tester.enterText(find.byType(TextField), '123456');
     await tester.pumpAndSettle();
 
     // Tap Verify & Login

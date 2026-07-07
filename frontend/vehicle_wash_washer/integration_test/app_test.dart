@@ -14,7 +14,7 @@ void main() {
     expect(find.text('Welcome'), findsOneWidget);
     
     // Enter mobile number
-    await tester.enterText(find.bySemanticsLabel('Mobile Number'), '+1234567890');
+    await tester.enterText(find.byType(TextField), '1234567890');
     await tester.pumpAndSettle();
     
     // Tap Continue
@@ -25,11 +25,24 @@ void main() {
     expect(find.text('Verification'), findsOneWidget);
     
     // Enter OTP
-    await tester.enterText(find.bySemanticsLabel('OTP Code'), '123456');
+    await tester.enterText(find.byType(TextField), '123456');
     await tester.pumpAndSettle();
 
     // Tap Verify & Login
     await tester.tap(find.text('Verify & Login'));
+    await tester.pumpAndSettle();
+
+    // Onboarding Screen
+    expect(find.text('Complete Your Profile'), findsOneWidget);
+    await tester.enterText(find.byType(TextField).at(0), 'John Doe');
+    await tester.enterText(find.byType(TextField).at(1), '1234567890');
+    
+    await tester.ensureVisible(find.text('Upload Document'));
+    await tester.tap(find.text('Upload Document'));
+    await tester.pumpAndSettle();
+
+    await tester.ensureVisible(find.text('Submit Application'));
+    await tester.tap(find.text('Submit Application'));
     await tester.pumpAndSettle();
 
     // Dashboard Screen
@@ -52,12 +65,15 @@ void main() {
     // Current Job Screen
     expect(find.text('Active Job'), findsWidgets);
     
+    await tester.ensureVisible(find.text('Start Navigation'));
     await tester.tap(find.text('Start Navigation'));
     await tester.pumpAndSettle();
     
+    await tester.ensureVisible(find.text('Arrived - Start Wash'));
     await tester.tap(find.text('Arrived - Start Wash'));
     await tester.pumpAndSettle();
     
+    await tester.ensureVisible(find.text('Finish & Upload Photos'));
     await tester.tap(find.text('Finish & Upload Photos'));
     await tester.pumpAndSettle();
 
@@ -73,11 +89,13 @@ void main() {
     await tester.pumpAndSettle();
     
     // Submit
+    await tester.ensureVisible(find.text('Submit & View Summary'));
     await tester.tap(find.text('Submit & View Summary'));
     await tester.pumpAndSettle();
 
     // Job Summary Screen
     expect(find.text('Job Completed'), findsWidgets);
+    await tester.ensureVisible(find.text('Return to Dashboard'));
     await tester.tap(find.text('Return to Dashboard'));
     await tester.pumpAndSettle();
     

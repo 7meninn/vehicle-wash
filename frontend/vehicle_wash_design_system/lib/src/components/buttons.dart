@@ -15,6 +15,7 @@ class VerdantButton extends StatefulWidget {
   final VerdantButtonVariant variant;
   final bool isLoading;
   final IconData? icon;
+  final EdgeInsetsGeometry? padding;
 
   const VerdantButton({
     super.key,
@@ -23,6 +24,7 @@ class VerdantButton extends StatefulWidget {
     this.variant = VerdantButtonVariant.primary,
     this.isLoading = false,
     this.icon,
+    this.padding,
   });
 
   @override
@@ -41,7 +43,7 @@ class _VerdantButtonState extends State<VerdantButton> {
         onTap: widget.isLoading ? null : widget.onPressed,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+          padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
           decoration: _getDecoration(),
           child: Row(
             mainAxisSize: MainAxisSize.min,
@@ -68,10 +70,13 @@ class _VerdantButtonState extends State<VerdantButton> {
                     color: _getTextColor(),
                   ),
                 ),
-              Text(
-                widget.label,
-                style: VerdantTypography.labelLarge.copyWith(
-                  color: _getTextColor(),
+              Flexible(
+                child: Text(
+                  widget.label,
+                  style: VerdantTypography.labelLarge.copyWith(
+                    color: _getTextColor(),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ],

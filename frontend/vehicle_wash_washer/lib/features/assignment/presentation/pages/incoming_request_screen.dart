@@ -74,6 +74,7 @@ class IncomingRequestScreen extends StatelessWidget {
                     child: VerdantButton(
                       label: 'Decline',
                       variant: VerdantButtonVariant.ghost,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                       onPressed: () {
                         context.go('/dashboard');
                       },
@@ -81,9 +82,9 @@ class IncomingRequestScreen extends StatelessWidget {
                   ),
                   const SizedBox(width: VerdantSpacing.gap),
                   Expanded(
-                    flex: 2,
                     child: VerdantButton(
                       label: 'Accept Job',
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                       onPressed: () {
                         context.go('/job/current');
                       },
