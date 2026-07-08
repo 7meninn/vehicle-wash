@@ -58,6 +58,18 @@ public abstract class AbstractIntegrationTest {
         return "Bearer " + token;
     }
 
+    protected String getAdminToken(String mobileNumber) {
+        com.company.vehiclewash.auth.entity.User user = userRepository.findByMobileNumber(mobileNumber).orElseGet(() -> {
+            com.company.vehiclewash.auth.entity.User newUser = new com.company.vehiclewash.auth.entity.User();
+            newUser.setMobileNumber(mobileNumber);
+            newUser.setRoles(java.util.Set.of(com.company.vehiclewash.auth.entity.Role.ADMIN));
+            return userRepository.save(newUser);
+        });
+        String token = jwtService.generateAccessToken(user);
+        com.company.vehiclewash.security.SecurityUtils.setMockUserId(user.getId());
+        return "Bearer " + token;
+    }
+
     static {
         postgreSQLContainer.start();
     }
