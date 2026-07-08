@@ -19,7 +19,7 @@ import '../features/dispute/presentation/pages/create_dispute_page.dart';
 import '../features/dispute/presentation/pages/dispute_details_page.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/splash',
+  initialLocation: '/notifications',
   routes: [
     GoRoute(
       path: '/splash',

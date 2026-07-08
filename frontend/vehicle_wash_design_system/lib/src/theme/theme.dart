@@ -42,7 +42,7 @@ class VerdantTheme {
         titleTextStyle: VerdantTypography.headlineMedium,
         iconTheme: const IconThemeData(color: VerdantColors.textPrimary),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: VerdantColors.surface,
         shape: RoundedRectangleBorder(
           borderRadius: VerdantRadius.innerRadius,
