@@ -37,10 +37,10 @@ class NotificationScreen extends ConsumerWidget {
                   child: Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: notification.isRead ? colorScheme.surface : colorScheme.primary.withOpacity(0.05),
+                      color: notification.isRead ? colorScheme.surface : colorScheme.primary.withAlpha(12),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: notification.isRead ? colorScheme.surfaceVariant ?? Colors.grey.shade800 : colorScheme.primary,
+                        color: notification.isRead ? colorScheme.surfaceContainerHighest : colorScheme.primary,
                       ),
                     ),
                     child: Column(
@@ -78,7 +78,7 @@ class NotificationScreen extends ConsumerWidget {
                         const SizedBox(height: 8),
                         Text(
                           _formatDate(notification.sentAt),
-                          style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.6)),
+                          style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withAlpha(153)),
                         ),
                       ],
                     ),

@@ -61,7 +61,7 @@ class _RaiseDisputeScreenState extends ConsumerState<RaiseDisputeScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               DropdownButtonFormField<String>(
-                value: _selectedType,
+                initialValue: _selectedType,
                 decoration: const InputDecoration(
                   labelText: 'Dispute Type',
                   border: OutlineInputBorder(),
