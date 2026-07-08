@@ -14,6 +14,9 @@ import '../features/booking/presentation/pages/select_time_screen.dart';
 import '../features/booking/presentation/pages/price_estimate_screen.dart';
 import '../features/booking/presentation/pages/booking_confirmed_screen.dart';
 import '../features/payment/presentation/pages/mock_payment_screen.dart';
+import '../features/notification/presentation/pages/notifications_page.dart';
+import '../features/dispute/presentation/pages/create_dispute_page.dart';
+import '../features/dispute/presentation/pages/dispute_details_page.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/splash',
@@ -76,6 +79,24 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/payment/mock',
       builder: (context, state) => const MockPaymentScreen(),
+    ),
+    GoRoute(
+      path: '/notifications',
+      builder: (context, state) => const NotificationsPage(),
+    ),
+    GoRoute(
+      path: '/disputes/create/:bookingId',
+      builder: (context, state) {
+        final bookingId = state.pathParameters['bookingId']!;
+        return CreateDisputePage(bookingId: bookingId);
+      },
+    ),
+    GoRoute(
+      path: '/disputes/:disputeId',
+      builder: (context, state) {
+        final disputeId = state.pathParameters['disputeId']!;
+        return DisputeDetailsPage(disputeId: disputeId);
+      },
     ),
   ],
 );
