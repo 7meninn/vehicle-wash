@@ -1,14 +1,22 @@
 # Build stage
 FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
+
+# Copy gradle wrapper and configuration files
 COPY gradlew .
 COPY gradle gradle
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-COPY src src
 
 # Make gradle wrapper executable
 RUN chmod +x ./gradlew
+
+# Download dependencies to cache them in a docker layer
+RUN ./gradlew dependencies --no-daemon
+
+# Copy source code
+COPY src src
+
 # Build the application
 RUN ./gradlew bootJar --no-daemon
 
