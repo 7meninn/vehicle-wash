@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../theme/colors.dart';
 
-class VerdantLoadingIndicator extends StatelessWidget {
+class EnterpriseLoadingIndicator extends StatelessWidget {
   final double size;
   final Color? color;
 
-  const VerdantLoadingIndicator({
+  const EnterpriseLoadingIndicator({
     super.key,
     this.size = 24.0,
     this.color,
@@ -19,7 +19,7 @@ class VerdantLoadingIndicator extends StatelessWidget {
       child: CircularProgressIndicator(
         strokeWidth: 2.0,
         valueColor: AlwaysStoppedAnimation<Color>(
-          color ?? VerdantColors.warmSand,
+          color ?? Theme.of(context).colorScheme.primary,
         ),
       ),
     );

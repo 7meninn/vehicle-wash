@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class VerdantSpacing {
+class EnterpriseSpacing {
   static const double base = 8.0;
   static const double gap = 16.0;
   static const double cardPadding = 24.0;
@@ -12,7 +12,7 @@ class VerdantSpacing {
   static const SizedBox spaceCardPadding = SizedBox(width: cardPadding, height: cardPadding);
 }
 
-class VerdantRadius {
+class EnterpriseRadius {
   static const double small = 8.0; // from YAML card
   static const double inner = 16.0; // 1rem for inner UI
   static const double major = 32.0; // 2rem for major containers

@@ -42,12 +42,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Verdant\nWash',
+              'Enterprise\nWash',
               textAlign: TextAlign.center,
-              style: VerdantTypography.displayMedium,
+              style: Theme.of(context).textTheme.displayMedium,
             ),
-            const SizedBox(height: VerdantSpacing.sectionPadding),
-            const VerdantLoadingIndicator(),
+            const SizedBox(height: EnterpriseSpacing.sectionPadding),
+            const EnterpriseLoadingIndicator(),
           ],
         ),
       ),

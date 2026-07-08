@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import '../providers/auth_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -52,17 +53,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
+              const Icon(
+                Icons.local_car_wash_rounded,
+                size: 64,
+                color: VerdantColors.primary,
+              ).animate().fadeIn(duration: 400.ms).slideY(begin: 0.2),
+              const SizedBox(height: VerdantSpacing.gap * 2),
               Text(
-                'Welcome',
-                style: VerdantTypography.displayMedium,
-              ),
+                'Welcome Back',
+                style: VerdantTypography.displayMedium.copyWith(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ).animate().fadeIn(delay: 200.ms, duration: 400.ms).slideY(begin: 0.1),
               const SizedBox(height: VerdantSpacing.base),
               Text(
-                'Enter your mobile number to continue.',
-                style: VerdantTypography.bodyLarge,
-              ),
+                'Enter your mobile number to access your washer portal.',
+                style: VerdantTypography.bodyLarge.copyWith(color: VerdantColors.textSecondary),
+                textAlign: TextAlign.center,
+              ).animate().fadeIn(delay: 300.ms, duration: 400.ms),
               const SizedBox(height: VerdantSpacing.sectionPadding),
               VerdantCard(
+                padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
                     VerdantTextField(
@@ -82,7 +92,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     ),
                   ],
                 ),
-              ),
+              ).animate().fadeIn(delay: 400.ms, duration: 500.ms).slideY(begin: 0.1),
               const Spacer(flex: 2),
             ],
           ),

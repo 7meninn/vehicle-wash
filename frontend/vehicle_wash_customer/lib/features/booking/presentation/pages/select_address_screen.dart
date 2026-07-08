@@ -29,28 +29,28 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
       appBar: AppBar(title: const Text('Book Wash - Step 2')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 'Select Address',
-                style: VerdantTypography.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'Where should the washer meet you?',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding / 2),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding / 2),
               Expanded(
                 child: ListView.separated(
                   itemCount: _addresses.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: VerdantSpacing.gap),
+                  separatorBuilder: (_, __) => const SizedBox(height: EnterpriseSpacing.gap),
                   itemBuilder: (context, index) {
                     final a = _addresses[index];
                     final isSelected = a['id'] == _selectedAddressId;
-                    return VerdantCard(
+                    return EnterpriseCard(
                       padding: const EdgeInsets.all(16),
                       onTap: () {
                         setState(() {
@@ -61,16 +61,16 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                         children: [
                           Icon(
                             isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-                            color: isSelected ? VerdantColors.warmSand : VerdantColors.textSecondary,
+                            color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                           ),
-                          const SizedBox(width: VerdantSpacing.gap),
+                          const SizedBox(width: EnterpriseSpacing.gap),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(a['label']!, style: VerdantTypography.titleLarge),
+                                Text(a['label']!, style: Theme.of(context).textTheme.titleLarge),
                                 const SizedBox(height: 4),
-                                Text(a['details']!, style: VerdantTypography.bodyMedium),
+                                Text(a['details']!, style: Theme.of(context).textTheme.bodyMedium),
                               ],
                             ),
                           ),
@@ -80,10 +80,10 @@ class _SelectAddressScreenState extends State<SelectAddressScreen> {
                   },
                 ),
               ),
-              VerdantButton(
+              EnterpriseButton(
                 label: 'Continue to Schedule',
                 onPressed: _selectedAddressId == null ? () {} : _handleNext,
-                variant: _selectedAddressId == null ? VerdantButtonVariant.secondary : VerdantButtonVariant.primary,
+                variant: _selectedAddressId == null ? EnterpriseButtonVariant.secondary : EnterpriseButtonVariant.primary,
               ),
             ],
           ),

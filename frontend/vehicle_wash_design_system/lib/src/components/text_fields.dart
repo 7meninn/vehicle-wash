@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
 import '../theme/typography.dart';
 import '../theme/spacing.dart';
 
-class VerdantTextField extends StatelessWidget {
+class EnterpriseTextField extends StatelessWidget {
   final String label;
   final String? hintText;
   final TextEditingController? controller;
@@ -12,7 +11,7 @@ class VerdantTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final String? errorText;
 
-  const VerdantTextField({
+  const EnterpriseTextField({
     super.key,
     required this.label,
     this.hintText,
@@ -25,47 +24,47 @@ class VerdantTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label.toUpperCase(),
-          style: VerdantTypography.labelMedium,
+          style: EnterpriseTypography.labelMedium(theme.colorScheme.onSurface.withOpacity(0.7)),
         ),
-        const SizedBox(height: VerdantSpacing.base),
+        const SizedBox(height: EnterpriseSpacing.base),
         TextField(
           controller: controller,
           obscureText: obscureText,
           keyboardType: keyboardType,
-          style: VerdantTypography.bodyLarge,
+          style: EnterpriseTypography.bodyLarge(theme.colorScheme.onSurface),
           decoration: InputDecoration(
             hintText: hintText,
-            hintStyle: VerdantTypography.bodyLarge.copyWith(
-              color: VerdantColors.textSecondary.withOpacity(0.5),
-            ),
+            hintStyle: EnterpriseTypography.bodyLarge(theme.colorScheme.onSurface.withOpacity(0.4)),
             errorText: errorText,
             filled: true,
-            fillColor: VerdantColors.surfaceElevated,
+            fillColor: theme.colorScheme.surface,
             suffixIcon: suffixIcon,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 16,
             ),
             border: OutlineInputBorder(
-              borderRadius: VerdantRadius.smallRadius,
-              borderSide: const BorderSide(color: VerdantColors.border),
+              borderRadius: EnterpriseRadius.smallRadius,
+              borderSide: BorderSide(color: theme.colorScheme.primary.withOpacity(0.2)),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: VerdantRadius.smallRadius,
-              borderSide: const BorderSide(color: VerdantColors.border),
+              borderRadius: EnterpriseRadius.smallRadius,
+              borderSide: BorderSide(color: theme.colorScheme.primary.withOpacity(0.2)),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: VerdantRadius.smallRadius,
-              borderSide: const BorderSide(color: VerdantColors.warmSand),
+              borderRadius: EnterpriseRadius.smallRadius,
+              borderSide: BorderSide(color: theme.colorScheme.primary),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: VerdantRadius.smallRadius,
-              borderSide: const BorderSide(color: Colors.redAccent),
+              borderRadius: EnterpriseRadius.smallRadius,
+              borderSide: BorderSide(color: theme.colorScheme.error),
             ),
           ),
         ),

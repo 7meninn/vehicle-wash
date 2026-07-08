@@ -1,105 +1,105 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'colors.dart';
 
-class VerdantTypography {
-  // Display - Playfair Display
-  static TextStyle get displayLarge => GoogleFonts.playfairDisplay(
+class EnterpriseTypography {
+  // Display - DM Sans
+  static TextStyle displayLarge([Color? color]) => GoogleFonts.dmSans(
         fontSize: 64,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         height: 1.04,
-        letterSpacing: 0,
-        color: VerdantColors.textPrimary,
+        letterSpacing: -1.0,
+        color: color,
       );
 
-  static TextStyle get displayMedium => GoogleFonts.playfairDisplay(
+  static TextStyle displayMedium([Color? color]) => GoogleFonts.dmSans(
         fontSize: 48,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         height: 1.1,
-        letterSpacing: 0,
-        color: VerdantColors.textPrimary,
+        letterSpacing: -0.5,
+        color: color,
       );
 
-  static TextStyle get displaySmall => GoogleFonts.playfairDisplay(
+  static TextStyle displaySmall([Color? color]) => GoogleFonts.dmSans(
         fontSize: 36,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w700,
         height: 1.15,
-        letterSpacing: 0,
-        color: VerdantColors.textPrimary,
+        letterSpacing: -0.25,
+        color: color,
       );
 
-  // Headlines - Playfair Display
-  static TextStyle get headlineLarge => GoogleFonts.playfairDisplay(
+  // Headlines - DM Sans
+  static TextStyle headlineLarge([Color? color]) => GoogleFonts.dmSans(
         fontSize: 32,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         height: 1.2,
-        letterSpacing: 0,
-        color: VerdantColors.textPrimary,
+        letterSpacing: -0.25,
+        color: color,
       );
 
-  static TextStyle get headlineMedium => GoogleFonts.playfairDisplay(
+  static TextStyle headlineMedium([Color? color]) => GoogleFonts.dmSans(
         fontSize: 28,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
         height: 1.2,
         letterSpacing: 0,
-        color: VerdantColors.textPrimary,
+        color: color,
       );
 
-  // Title - Inter
-  static TextStyle get titleLarge => GoogleFonts.inter(
+  // Title - DM Sans
+  static TextStyle titleLarge([Color? color]) => GoogleFonts.dmSans(
         fontSize: 22,
-        fontWeight: FontWeight.w500, // Medium
+        fontWeight: FontWeight.w600,
         height: 1.3,
-        color: VerdantColors.textPrimary,
+        letterSpacing: 0,
+        color: color,
       );
 
-  static TextStyle get titleMedium => GoogleFonts.inter(
+  static TextStyle titleMedium([Color? color]) => GoogleFonts.dmSans(
         fontSize: 16,
-        fontWeight: FontWeight.w500, // Medium
+        fontWeight: FontWeight.w600,
         height: 1.5,
         letterSpacing: 0.15,
-        color: VerdantColors.textPrimary,
+        color: color,
       );
 
-  // Body - Inter
-  static TextStyle get bodyLarge => GoogleFonts.inter(
+  // Body - DM Sans
+  static TextStyle bodyLarge([Color? color]) => GoogleFonts.dmSans(
         fontSize: 16,
-        fontWeight: FontWeight.w400, // Regular
+        fontWeight: FontWeight.w400,
         height: 1.6,
         letterSpacing: 0.5,
-        color: VerdantColors.textPrimary,
+        color: color,
       );
 
-  static TextStyle get bodyMedium => GoogleFonts.inter(
+  static TextStyle bodyMedium([Color? color]) => GoogleFonts.dmSans(
         fontSize: 14,
-        fontWeight: FontWeight.w400, // Regular
+        fontWeight: FontWeight.w400,
         height: 1.6,
         letterSpacing: 0.25,
-        color: VerdantColors.textSecondary,
+        color: color,
       );
 
-  // Label - JetBrains Mono
-  static TextStyle get labelLarge => GoogleFonts.jetBrainsMono(
+  // Label - DM Sans
+  static TextStyle labelLarge([Color? color]) => GoogleFonts.dmSans(
         fontSize: 14,
-        fontWeight: FontWeight.w600, // SemiBold
+        fontWeight: FontWeight.w600,
         height: 1.2,
-        letterSpacing: 1.25, // Tracking widest
-        color: VerdantColors.textPrimary,
+        letterSpacing: 1.25,
+        color: color,
       );
 
-  static TextStyle get labelMedium => GoogleFonts.jetBrainsMono(
+  static TextStyle labelMedium([Color? color]) => GoogleFonts.dmSans(
         fontSize: 12,
-        fontWeight: FontWeight.w600, // SemiBold
+        fontWeight: FontWeight.w600,
         height: 1.2,
         letterSpacing: 1.5,
-        color: VerdantColors.textSecondary,
+        color: color,
       );
       
-  static TextStyle get labelSmall => GoogleFonts.jetBrainsMono(
+  static TextStyle labelSmall([Color? color]) => GoogleFonts.dmSans(
         fontSize: 10,
         fontWeight: FontWeight.w600,
         height: 1.2,
         letterSpacing: 1.5,
-        color: VerdantColors.textSecondary,
+        color: color,
       );
 }

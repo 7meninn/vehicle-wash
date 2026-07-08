@@ -1,63 +1,70 @@
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
 import '../theme/typography.dart';
 import '../theme/spacing.dart';
 
-enum VerdantButtonVariant {
+enum EnterpriseButtonVariant {
   primary,
   secondary,
   ghost,
 }
 
-class VerdantButton extends StatefulWidget {
+class EnterpriseButton extends StatefulWidget {
   final String label;
   final VoidCallback onPressed;
-  final VerdantButtonVariant variant;
+  final EnterpriseButtonVariant variant;
   final bool isLoading;
   final IconData? icon;
   final EdgeInsetsGeometry? padding;
 
-  const VerdantButton({
+  const EnterpriseButton({
     super.key,
     required this.label,
     required this.onPressed,
-    this.variant = VerdantButtonVariant.primary,
+    this.variant = EnterpriseButtonVariant.primary,
     this.isLoading = false,
     this.icon,
     this.padding,
   });
 
   @override
-  State<VerdantButton> createState() => _VerdantButtonState();
+  State<EnterpriseButton> createState() => _EnterpriseButtonState();
 }
 
-class _VerdantButtonState extends State<VerdantButton> {
+class _EnterpriseButtonState extends State<EnterpriseButton> {
   bool _isHovered = false;
+  bool _isPressed = false;
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: GestureDetector(
+        onTapDown: (_) => setState(() => _isPressed = true),
+        onTapUp: (_) => setState(() => _isPressed = false),
+        onTapCancel: () => setState(() => _isPressed = false),
         onTap: widget.isLoading ? null : widget.onPressed,
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.easeOut,
           padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-          decoration: _getDecoration(),
+          decoration: _getDecoration(theme),
+          transform: Matrix4.identity()..scale(_isPressed ? 0.98 : 1.0),
+          transformAlignment: Alignment.center,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (widget.isLoading)
-                const Padding(
-                  padding: EdgeInsets.only(right: 8.0),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
                   child: SizedBox(
                     width: 16,
                     height: 16,
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor: AlwaysStoppedAnimation<Color>(_getTextColor(theme)),
                     ),
                   ),
                 )
@@ -67,15 +74,13 @@ class _VerdantButtonState extends State<VerdantButton> {
                   child: Icon(
                     widget.icon,
                     size: 18,
-                    color: _getTextColor(),
+                    color: _getTextColor(theme),
                   ),
                 ),
               Flexible(
                 child: Text(
                   widget.label,
-                  style: VerdantTypography.labelLarge.copyWith(
-                    color: _getTextColor(),
-                  ),
+                  style: EnterpriseTypography.labelLarge(_getTextColor(theme)),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -86,43 +91,52 @@ class _VerdantButtonState extends State<VerdantButton> {
     );
   }
 
-  BoxDecoration _getDecoration() {
+  BoxDecoration _getDecoration(ThemeData theme) {
     switch (widget.variant) {
-      case VerdantButtonVariant.primary:
+      case EnterpriseButtonVariant.primary:
         return BoxDecoration(
-          color: VerdantColors.warmSand,
-          borderRadius: VerdantRadius.pillRadius,
+          color: theme.colorScheme.primary,
+          borderRadius: EnterpriseRadius.pillRadius,
           boxShadow: _isHovered
               ? [
                   BoxShadow(
-                    color: VerdantColors.warmSand.withOpacity(0.4),
+                    color: theme.colorScheme.primary.withOpacity(0.4),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   )
                 ]
               : [],
         );
-      case VerdantButtonVariant.secondary:
+      case EnterpriseButtonVariant.secondary:
         return BoxDecoration(
-          color: VerdantColors.surfaceElevated,
-          borderRadius: VerdantRadius.pillRadius,
-          border: Border.all(color: VerdantColors.border),
+          color: theme.colorScheme.surface,
+          borderRadius: EnterpriseRadius.pillRadius,
+          border: Border.all(color: theme.colorScheme.primary.withOpacity(0.2)),
+          boxShadow: _isHovered
+              ? [
+                  BoxShadow(
+                    color: theme.shadowColor.withOpacity(0.05),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  )
+                ]
+              : [],
         );
-      case VerdantButtonVariant.ghost:
+      case EnterpriseButtonVariant.ghost:
         return BoxDecoration(
-          color: _isHovered ? VerdantColors.whiteTransparent : Colors.transparent,
-          borderRadius: VerdantRadius.pillRadius,
+          color: _isHovered ? theme.colorScheme.primary.withOpacity(0.05) : Colors.transparent,
+          borderRadius: EnterpriseRadius.pillRadius,
         );
     }
   }
 
-  Color _getTextColor() {
+  Color _getTextColor(ThemeData theme) {
     switch (widget.variant) {
-      case VerdantButtonVariant.primary:
-        return VerdantColors.obsidian;
-      case VerdantButtonVariant.secondary:
-      case VerdantButtonVariant.ghost:
-        return VerdantColors.textPrimary;
+      case EnterpriseButtonVariant.primary:
+        return theme.colorScheme.onPrimary;
+      case EnterpriseButtonVariant.secondary:
+      case EnterpriseButtonVariant.ghost:
+        return theme.colorScheme.primary;
     }
   }
 }

@@ -47,32 +47,32 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              VerdantCard(
+              EnterpriseCard(
                 child: Column(
                   children: [
-                    VerdantTextField(
+                    EnterpriseTextField(
                       label: 'Make',
                       hintText: 'e.g. Toyota',
                       controller: _makeController,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    VerdantTextField(
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    EnterpriseTextField(
                       label: 'Model',
                       hintText: 'e.g. Camry',
                       controller: _modelController,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    VerdantTextField(
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    EnterpriseTextField(
                       label: 'Color',
                       hintText: 'e.g. Midnight Blue',
                       controller: _colorController,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    VerdantTextField(
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    EnterpriseTextField(
                       label: 'License Plate',
                       hintText: 'ABC-1234',
                       controller: _licensePlateController,
@@ -80,8 +80,8 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding),
-              VerdantButton(
+              const SizedBox(height: EnterpriseSpacing.sectionPadding),
+              EnterpriseButton(
                 label: 'Save Vehicle',
                 onPressed: _handleSave,
               ),

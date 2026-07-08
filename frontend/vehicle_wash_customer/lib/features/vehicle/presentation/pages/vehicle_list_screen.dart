@@ -36,9 +36,9 @@ class _VehicleListScreenState extends State<VehicleListScreen> {
         child: _vehicles.isEmpty ? _buildEmptyState() : _buildList(),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: VerdantColors.warmSand,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: _navigateToAddVehicle,
-        child: const Icon(Icons.add, color: VerdantColors.obsidian),
+        child: Icon(Icons.add, color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }
@@ -46,26 +46,26 @@ class _VehicleListScreenState extends State<VehicleListScreen> {
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+        padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.directions_car_outlined, size: 64, color: VerdantColors.textSecondary),
-            const SizedBox(height: VerdantSpacing.gap),
+            Icon(Icons.directions_car_outlined, size: 64, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6)),
+            const SizedBox(height: EnterpriseSpacing.gap),
             Text(
               'No vehicles yet.',
-              style: VerdantTypography.headlineMedium,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: VerdantSpacing.base),
+            const SizedBox(height: EnterpriseSpacing.base),
             Text(
               'Add your first car to get started with booking a wash.',
               textAlign: TextAlign.center,
-              style: VerdantTypography.bodyLarge,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(height: VerdantSpacing.sectionPadding),
-            VerdantButton(
+            const SizedBox(height: EnterpriseSpacing.sectionPadding),
+            EnterpriseButton(
               label: 'Add a Vehicle',
-              variant: VerdantButtonVariant.secondary,
+              variant: EnterpriseButtonVariant.secondary,
               onPressed: _navigateToAddVehicle,
             ),
           ],
@@ -76,31 +76,31 @@ class _VehicleListScreenState extends State<VehicleListScreen> {
 
   Widget _buildList() {
     return ListView.separated(
-      padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+      padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
       itemCount: _vehicles.length,
-      separatorBuilder: (_, __) => const SizedBox(height: VerdantSpacing.gap),
+      separatorBuilder: (_, __) => const SizedBox(height: EnterpriseSpacing.gap),
       itemBuilder: (context, index) {
         final v = _vehicles[index];
-        return VerdantCard(
+        return EnterpriseCard(
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: const BoxDecoration(
-                  color: VerdantColors.whiteTransparent,
+                  color: EnterpriseColors.whiteTransparent,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.directions_car, color: VerdantColors.warmSand),
+                child: Icon(Icons.directions_car, color: Theme.of(context).colorScheme.primary),
               ),
-              const SizedBox(width: VerdantSpacing.gap),
+              const SizedBox(width: EnterpriseSpacing.gap),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${v['make']} ${v['model']}', style: VerdantTypography.titleLarge),
+                    Text('${v['make']} ${v['model']}', style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 4),
-                    Text(v['plate'] ?? '', style: VerdantTypography.labelMedium),
+                    Text(v['plate'] ?? '', style: Theme.of(context).textTheme.labelMedium),
                   ],
                 ),
               ),

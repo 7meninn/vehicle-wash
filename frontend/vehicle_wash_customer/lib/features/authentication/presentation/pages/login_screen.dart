@@ -47,34 +47,34 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.symmetric(horizontal: EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
               Text(
                 'Welcome',
-                style: VerdantTypography.displayMedium,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'Enter your mobile number to continue.',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding),
-              VerdantCard(
+              const SizedBox(height: EnterpriseSpacing.sectionPadding),
+              EnterpriseCard(
                 child: Column(
                   children: [
-                    VerdantTextField(
+                    EnterpriseTextField(
                       label: 'Mobile Number',
                       hintText: '+1 234 567 8900',
                       controller: _mobileController,
                       keyboardType: TextInputType.phone,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap * 2),
+                    const SizedBox(height: EnterpriseSpacing.gap * 2),
                     SizedBox(
                       width: double.infinity,
-                      child: VerdantButton(
+                      child: EnterpriseButton(
                         label: 'Continue',
                         isLoading: authState.isLoading,
                         onPressed: _handleLogin,

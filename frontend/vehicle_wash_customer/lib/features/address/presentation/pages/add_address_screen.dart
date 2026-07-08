@@ -45,26 +45,26 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              VerdantCard(
+              EnterpriseCard(
                 child: Column(
                   children: [
-                    VerdantTextField(
+                    EnterpriseTextField(
                       label: 'Label',
                       hintText: 'e.g. Home, Office',
                       controller: _labelController,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    VerdantTextField(
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    EnterpriseTextField(
                       label: 'Address Line',
                       hintText: 'e.g. 123 Main St, Apt 4B',
                       controller: _addressLineController,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    VerdantTextField(
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    EnterpriseTextField(
                       label: 'City',
                       hintText: 'e.g. Springfield',
                       controller: _cityController,
@@ -72,8 +72,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding),
-              VerdantButton(
+              const SizedBox(height: EnterpriseSpacing.sectionPadding),
+              EnterpriseButton(
                 label: 'Save Address',
                 onPressed: _handleSave,
               ),

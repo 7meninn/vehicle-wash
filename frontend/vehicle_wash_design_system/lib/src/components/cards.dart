@@ -1,24 +1,25 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../theme/colors.dart';
 import '../theme/spacing.dart';
 
-class VerdantCard extends StatelessWidget {
+class EnterpriseCard extends StatelessWidget {
   final Widget child;
   final EdgeInsets padding;
   final double borderRadius;
   final VoidCallback? onTap;
 
-  const VerdantCard({
+  const EnterpriseCard({
     super.key,
     required this.child,
-    this.padding = const EdgeInsets.all(VerdantSpacing.cardPadding),
-    this.borderRadius = VerdantRadius.inner,
+    this.padding = const EdgeInsets.all(EnterpriseSpacing.cardPadding),
+    this.borderRadius = EnterpriseRadius.inner,
     this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -26,37 +27,23 @@ class VerdantCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 12,
+              color: isDark ? Colors.black.withOpacity(0.3) : theme.colorScheme.shadow.withOpacity(0.08),
+              blurRadius: 16,
               offset: const Offset(0, 4),
             ),
           ],
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(borderRadius),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
-            child: Container(
-              padding: padding,
-              decoration: BoxDecoration(
-                color: VerdantColors.surface.withOpacity(0.8),
-                borderRadius: BorderRadius.circular(borderRadius),
-                border: Border.all(
-                  color: VerdantColors.border,
-                  width: 1.0,
-                ),
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    VerdantColors.whiteTransparent,
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-              child: child,
+        child: Container(
+          padding: padding,
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: Border.all(
+              color: theme.colorScheme.primary.withOpacity(0.1),
+              width: 1.0,
             ),
           ),
+          child: child,
         ),
       ),
     );

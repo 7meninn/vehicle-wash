@@ -11,41 +11,41 @@ class PriceEstimateScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Review & Confirm')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 'Price Estimate',
-                style: VerdantTypography.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'Review the charges before finalizing your booking.',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding / 2),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding / 2),
               
-              VerdantCard(
+              EnterpriseCard(
                 padding: const EdgeInsets.all(24),
                 child: Column(
                   children: [
-                    _buildRow('Base Wash Price', '\$45.00'),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    _buildRow('Travel Charge', '\$5.00'),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    _buildRow('GST (18%)', '\$9.00'),
+                    _buildRow(context, 'Base Wash Price', '\$45.00'),
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    _buildRow(context, 'Travel Charge', '\$5.00'),
+                    const SizedBox(height: EnterpriseSpacing.gap),
+                    _buildRow(context, 'GST (18%)', '\$9.00'),
                     const Padding(
-                      padding: EdgeInsets.symmetric(vertical: VerdantSpacing.gap),
+                      padding: EdgeInsets.symmetric(vertical: EnterpriseSpacing.gap),
                       child: Divider(),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Total', style: VerdantTypography.titleLarge),
+                        Text('Total', style: Theme.of(context).textTheme.titleLarge),
                         Text(
                           '\$59.00',
-                          style: VerdantTypography.headlineLarge.copyWith(color: VerdantColors.warmSand),
+                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Theme.of(context).colorScheme.primary),
                         ),
                       ],
                     ),
@@ -54,7 +54,7 @@ class PriceEstimateScreen extends StatelessWidget {
               ),
               
               const Spacer(),
-              VerdantButton(
+              EnterpriseButton(
                 label: 'Confirm Booking',
                 onPressed: () {
                   context.push('/payment/mock');
@@ -67,12 +67,12 @@ class PriceEstimateScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRow(String label, String amount) {
+  Widget _buildRow(BuildContext context, String label, String amount) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: VerdantTypography.bodyLarge),
-        Text(amount, style: VerdantTypography.titleMedium),
+        Text(label, style: Theme.of(context).textTheme.bodyLarge),
+        Text(amount, style: Theme.of(context).textTheme.titleMedium),
       ],
     );
   }

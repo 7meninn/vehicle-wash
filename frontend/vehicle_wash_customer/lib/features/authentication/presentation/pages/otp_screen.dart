@@ -54,34 +54,34 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.symmetric(horizontal: EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: VerdantSpacing.sectionPadding / 2),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding / 2),
               Text(
                 'Verification',
-                style: VerdantTypography.displayMedium,
+                style: Theme.of(context).textTheme.displayMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'Enter the 6-digit code sent to ${widget.mobileNumber}.',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding),
-              VerdantCard(
+              const SizedBox(height: EnterpriseSpacing.sectionPadding),
+              EnterpriseCard(
                 child: Column(
                   children: [
-                    VerdantTextField(
+                    EnterpriseTextField(
                       label: 'OTP Code',
                       hintText: '123456',
                       controller: _otpController,
                       keyboardType: TextInputType.number,
                     ),
-                    const SizedBox(height: VerdantSpacing.gap * 2),
+                    const SizedBox(height: EnterpriseSpacing.gap * 2),
                     SizedBox(
                       width: double.infinity,
-                      child: VerdantButton(
+                      child: EnterpriseButton(
                         label: 'Verify & Login',
                         isLoading: authState.isLoading,
                         onPressed: _handleVerify,

@@ -14,36 +14,36 @@ class MockPaymentScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Icon(Icons.credit_card, size: 80, color: VerdantColors.textSecondary),
-              const SizedBox(height: VerdantSpacing.gap * 2),
+              Icon(Icons.credit_card, size: 80, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6)),
+              const SizedBox(height: EnterpriseSpacing.gap * 2),
               Text(
                 'Simulate Payment',
                 textAlign: TextAlign.center,
-                style: VerdantTypography.headlineLarge,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'This is a mock gateway since real payment processing is not yet integrated.',
                 textAlign: TextAlign.center,
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding),
               
-              VerdantButton(
+              EnterpriseButton(
                 label: 'Pay Success',
                 onPressed: () {
                   context.push('/booking/confirmed');
                 },
               ),
-              const SizedBox(height: VerdantSpacing.gap),
-              VerdantButton(
+              const SizedBox(height: EnterpriseSpacing.gap),
+              EnterpriseButton(
                 label: 'Pay Fail',
-                variant: VerdantButtonVariant.secondary,
+                variant: EnterpriseButtonVariant.secondary,
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Payment Failed. Please try again.')),

@@ -29,28 +29,28 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
       appBar: AppBar(title: const Text('Book Wash - Step 1')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 'Select Vehicle',
-                style: VerdantTypography.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'Which vehicle needs a wash today?',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding / 2),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding / 2),
               Expanded(
                 child: ListView.separated(
                   itemCount: _vehicles.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: VerdantSpacing.gap),
+                  separatorBuilder: (_, __) => const SizedBox(height: EnterpriseSpacing.gap),
                   itemBuilder: (context, index) {
                     final v = _vehicles[index];
                     final isSelected = v['id'] == _selectedVehicleId;
-                    return VerdantCard(
+                    return EnterpriseCard(
                       padding: const EdgeInsets.all(16),
                       onTap: () {
                         setState(() {
@@ -61,16 +61,16 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
                         children: [
                           Icon(
                             isSelected ? Icons.radio_button_checked : Icons.radio_button_off,
-                            color: isSelected ? VerdantColors.warmSand : VerdantColors.textSecondary,
+                            color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                           ),
-                          const SizedBox(width: VerdantSpacing.gap),
+                          const SizedBox(width: EnterpriseSpacing.gap),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(v['name']!, style: VerdantTypography.titleLarge),
+                                Text(v['name']!, style: Theme.of(context).textTheme.titleLarge),
                                 const SizedBox(height: 4),
-                                Text(v['plate']!, style: VerdantTypography.bodyMedium),
+                                Text(v['plate']!, style: Theme.of(context).textTheme.bodyMedium),
                               ],
                             ),
                           ),
@@ -80,10 +80,10 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
                   },
                 ),
               ),
-              VerdantButton(
+              EnterpriseButton(
                 label: 'Continue to Address',
                 onPressed: _selectedVehicleId == null ? () {} : _handleNext, // Disables if null visually handled by logic inside onPressed or variant
-                variant: _selectedVehicleId == null ? VerdantButtonVariant.secondary : VerdantButtonVariant.primary,
+                variant: _selectedVehicleId == null ? EnterpriseButtonVariant.secondary : EnterpriseButtonVariant.primary,
               ),
             ],
           ),

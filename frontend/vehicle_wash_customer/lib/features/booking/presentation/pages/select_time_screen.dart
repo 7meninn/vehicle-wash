@@ -29,29 +29,29 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
       appBar: AppBar(title: const Text('Book Wash - Step 3')),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+          padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 'Select Time',
-                style: VerdantTypography.headlineMedium,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.base),
               Text(
                 'When would you like the wash?',
-                style: VerdantTypography.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const SizedBox(height: VerdantSpacing.sectionPadding / 2),
+              const SizedBox(height: EnterpriseSpacing.sectionPadding / 2),
               
-              Text('DATE', style: VerdantTypography.labelMedium),
-              const SizedBox(height: VerdantSpacing.base),
+              Text('DATE', style: Theme.of(context).textTheme.labelMedium),
+              const SizedBox(height: EnterpriseSpacing.base),
               SizedBox(
                 height: 60,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: _dates.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: VerdantSpacing.gap),
+                  separatorBuilder: (_, __) => const SizedBox(width: EnterpriseSpacing.gap),
                   itemBuilder: (context, index) {
                     final date = _dates[index];
                     final isSelected = date == _selectedDate;
@@ -60,15 +60,15 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
                         decoration: BoxDecoration(
-                          color: isSelected ? VerdantColors.warmSand : VerdantColors.surfaceElevated,
-                          borderRadius: VerdantRadius.smallRadius,
-                          border: Border.all(color: VerdantColors.border),
+                          color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
+                          borderRadius: EnterpriseRadius.smallRadius,
+                          border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           date,
-                          style: VerdantTypography.titleMedium.copyWith(
-                            color: isSelected ? VerdantColors.obsidian : VerdantColors.textPrimary,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: isSelected ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -77,16 +77,16 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                 ),
               ),
               
-              const SizedBox(height: VerdantSpacing.gap * 2),
-              Text('TIME SLOT', style: VerdantTypography.labelMedium),
-              const SizedBox(height: VerdantSpacing.base),
+              const SizedBox(height: EnterpriseSpacing.gap * 2),
+              Text('TIME SLOT', style: Theme.of(context).textTheme.labelMedium),
+              const SizedBox(height: EnterpriseSpacing.base),
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 2.5,
-                    crossAxisSpacing: VerdantSpacing.gap,
-                    mainAxisSpacing: VerdantSpacing.gap,
+                    crossAxisSpacing: EnterpriseSpacing.gap,
+                    mainAxisSpacing: EnterpriseSpacing.gap,
                   ),
                   itemCount: _times.length,
                   itemBuilder: (context, index) {
@@ -96,15 +96,15 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                       onTap: () => setState(() => _selectedTime = time),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: isSelected ? VerdantColors.warmSand : VerdantColors.surfaceElevated,
-                          borderRadius: VerdantRadius.smallRadius,
-                          border: Border.all(color: VerdantColors.border),
+                          color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
+                          borderRadius: EnterpriseRadius.smallRadius,
+                          border: Border.all(color: Theme.of(context).colorScheme.onSurface.withOpacity(0.1)),
                         ),
                         alignment: Alignment.center,
                         child: Text(
                           time,
-                          style: VerdantTypography.titleMedium.copyWith(
-                            color: isSelected ? VerdantColors.obsidian : VerdantColors.textPrimary,
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                            color: isSelected ? Theme.of(context).colorScheme.onSurface : Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ),
@@ -113,10 +113,10 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
                 ),
               ),
               
-              VerdantButton(
+              EnterpriseButton(
                 label: 'View Estimate',
                 onPressed: (_selectedDate == null || _selectedTime == null) ? () {} : _handleNext,
-                variant: (_selectedDate == null || _selectedTime == null) ? VerdantButtonVariant.secondary : VerdantButtonVariant.primary,
+                variant: (_selectedDate == null || _selectedTime == null) ? EnterpriseButtonVariant.secondary : EnterpriseButtonVariant.primary,
               ),
             ],
           ),

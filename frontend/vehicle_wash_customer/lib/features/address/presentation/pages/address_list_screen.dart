@@ -36,9 +36,9 @@ class _AddressListScreenState extends State<AddressListScreen> {
         child: _addresses.isEmpty ? _buildEmptyState() : _buildList(),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: VerdantColors.warmSand,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         onPressed: _navigateToAddAddress,
-        child: const Icon(Icons.add, color: VerdantColors.obsidian),
+        child: Icon(Icons.add, color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }
@@ -46,26 +46,26 @@ class _AddressListScreenState extends State<AddressListScreen> {
   Widget _buildEmptyState() {
     return Center(
       child: Padding(
-        padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+        padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.location_on_outlined, size: 64, color: VerdantColors.textSecondary),
-            const SizedBox(height: VerdantSpacing.gap),
+            Icon(Icons.location_on_outlined, size: 64, color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6)),
+            const SizedBox(height: EnterpriseSpacing.gap),
             Text(
               'No addresses yet.',
-              style: VerdantTypography.headlineMedium,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
-            const SizedBox(height: VerdantSpacing.base),
+            const SizedBox(height: EnterpriseSpacing.base),
             Text(
               'Add a saved address to speed up booking.',
               textAlign: TextAlign.center,
-              style: VerdantTypography.bodyLarge,
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
-            const SizedBox(height: VerdantSpacing.sectionPadding),
-            VerdantButton(
+            const SizedBox(height: EnterpriseSpacing.sectionPadding),
+            EnterpriseButton(
               label: 'Add an Address',
-              variant: VerdantButtonVariant.secondary,
+              variant: EnterpriseButtonVariant.secondary,
               onPressed: _navigateToAddAddress,
             ),
           ],
@@ -76,31 +76,31 @@ class _AddressListScreenState extends State<AddressListScreen> {
 
   Widget _buildList() {
     return ListView.separated(
-      padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+      padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
       itemCount: _addresses.length,
-      separatorBuilder: (_, __) => const SizedBox(height: VerdantSpacing.gap),
+      separatorBuilder: (_, __) => const SizedBox(height: EnterpriseSpacing.gap),
       itemBuilder: (context, index) {
         final a = _addresses[index];
-        return VerdantCard(
+        return EnterpriseCard(
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: const BoxDecoration(
-                  color: VerdantColors.whiteTransparent,
+                  color: EnterpriseColors.whiteTransparent,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.location_on, color: VerdantColors.warmSand),
+                child: Icon(Icons.location_on, color: Theme.of(context).colorScheme.primary),
               ),
-              const SizedBox(width: VerdantSpacing.gap),
+              const SizedBox(width: EnterpriseSpacing.gap),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(a['label'] ?? '', style: VerdantTypography.titleLarge),
+                    Text(a['label'] ?? '', style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: 4),
-                    Text('${a['line']}, ${a['city']}', style: VerdantTypography.bodyMedium),
+                    Text('${a['line']}, ${a['city']}', style: Theme.of(context).textTheme.bodyMedium),
                   ],
                 ),
               ),

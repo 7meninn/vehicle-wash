@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import '../../../profile/presentation/pages/profile_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,30 +16,47 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _tabs = [
     const _DashboardTab(),
     const _BookingHistoryTab(),
+    const ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return Scaffold(
-      body: _tabs[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
-        selectedItemColor: VerdantColors.warmSand,
-        unselectedItemColor: VerdantColors.textSecondary,
-        backgroundColor: VerdantColors.background,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            activeIcon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history_outlined),
-            activeIcon: Icon(Icons.history),
-            label: 'Bookings',
-          ),
-        ],
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        switchInCurve: Curves.easeOut,
+        switchOutCurve: Curves.easeIn,
+        child: _tabs[_currentIndex],
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: theme.colorScheme.primary.withOpacity(0.1))),
+        ),
+        child: NavigationBar(
+          selectedIndex: _currentIndex,
+          onDestinationSelected: (index) => setState(() => _currentIndex = index),
+          backgroundColor: theme.scaffoldBackgroundColor,
+          elevation: 0,
+          destinations: const [
+            NavigationDestination(
+              icon: Icon(Icons.home_outlined),
+              selectedIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.history_outlined),
+              selectedIcon: Icon(Icons.history),
+              label: 'History',
+            ),
+            NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -49,9 +67,11 @@ class _DashboardTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
+        padding: const EdgeInsets.all(EnterpriseSpacing.cardPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,23 +79,23 @@ class _DashboardTab extends StatelessWidget {
             Text(
               'Welcome Back',
               textAlign: TextAlign.center,
-              style: VerdantTypography.displaySmall,
+              style: theme.textTheme.displaySmall,
             ),
-            const SizedBox(height: VerdantSpacing.sectionPadding),
-            VerdantButton(
+            const SizedBox(height: EnterpriseSpacing.sectionPadding),
+            EnterpriseButton(
               label: 'Book a Wash',
               onPressed: () => context.push('/booking/select-vehicle'),
             ),
-            const SizedBox(height: VerdantSpacing.gap),
-            VerdantButton(
+            const SizedBox(height: EnterpriseSpacing.gap),
+            EnterpriseButton(
               label: 'My Vehicles',
-              variant: VerdantButtonVariant.secondary,
+              variant: EnterpriseButtonVariant.secondary,
               onPressed: () => context.push('/vehicles'),
             ),
-            const SizedBox(height: VerdantSpacing.gap),
-            VerdantButton(
+            const SizedBox(height: EnterpriseSpacing.gap),
+            EnterpriseButton(
               label: 'My Addresses',
-              variant: VerdantButtonVariant.secondary,
+              variant: EnterpriseButtonVariant.secondary,
               onPressed: () => context.push('/addresses'),
             ),
           ],
@@ -90,55 +110,79 @@ class _BookingHistoryTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.all(VerdantSpacing.cardPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'My Bookings',
-              style: VerdantTypography.headlineMedium,
-            ),
-            const SizedBox(height: VerdantSpacing.gap * 2),
-            Expanded(
-              child: ListView(
-                children: [
-                  _buildBookingCard(
-                    status: 'Active',
-                    service: 'Premium Wash',
-                    date: 'Tomorrow, 09:00 AM',
-                    vehicle: 'Toyota Camry (ABC-1234)',
-                    price: '\$59.00',
-                  ),
-                  const SizedBox(height: VerdantSpacing.gap),
-                  _buildBookingCard(
-                    status: 'Completed',
-                    service: 'Standard Wash',
-                    date: 'Oct 12, 10:00 AM',
-                    vehicle: 'Honda CR-V (XYZ-9876)',
-                    price: '\$45.00',
-                    isPast: true,
-                  ),
-                ],
+      child: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 100.0,
+            floating: false,
+            pinned: true,
+            backgroundColor: theme.scaffoldBackgroundColor,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              title: Text(
+                'My Bookings',
+                style: theme.textTheme.headlineMedium,
               ),
             ),
-          ],
-        ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: EnterpriseSpacing.cardPadding),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                _buildBookingCard(
+                  context,
+                  status: 'Active',
+                  service: 'Premium Wash',
+                  date: 'Tomorrow, 09:00 AM',
+                  vehicle: 'Toyota Camry (ABC-1234)',
+                  price: '\$59.00',
+                  isActive: true,
+                ),
+                const SizedBox(height: EnterpriseSpacing.gap),
+                _buildBookingCard(
+                  context,
+                  status: 'Completed',
+                  service: 'Standard Wash',
+                  date: 'Oct 12, 10:00 AM',
+                  vehicle: 'Honda CR-V (XYZ-9876)',
+                  price: '\$45.00',
+                  isActive: false,
+                ),
+                const SizedBox(height: EnterpriseSpacing.gap),
+                _buildBookingCard(
+                  context,
+                  status: 'Completed',
+                  service: 'Premium Wash',
+                  date: 'Sep 28, 02:00 PM',
+                  vehicle: 'Toyota Camry (ABC-1234)',
+                  price: '\$59.00',
+                  isActive: false,
+                ),
+              ]),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildBookingCard({
+  Widget _buildBookingCard(
+    BuildContext context, {
     required String status,
     required String service,
     required String date,
     required String vehicle,
     required String price,
-    bool isPast = false,
+    bool isActive = false,
   }) {
-    return VerdantCard(
-      padding: const EdgeInsets.all(16),
+    final theme = Theme.of(context);
+    
+    return EnterpriseCard(
+      padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -146,30 +190,42 @@ class _BookingHistoryTab extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: isPast ? VerdantColors.surfaceElevated : VerdantColors.warmSand.withOpacity(0.2),
-                  borderRadius: VerdantRadius.smallRadius,
+                  color: isActive ? theme.colorScheme.primary.withOpacity(0.1) : theme.colorScheme.surface,
+                  borderRadius: EnterpriseRadius.smallRadius,
                   border: Border.all(
-                    color: isPast ? VerdantColors.border : VerdantColors.warmSand,
+                    color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.2),
                   ),
                 ),
                 child: Text(
                   status.toUpperCase(),
-                  style: VerdantTypography.labelSmall.copyWith(
-                    color: isPast ? VerdantColors.textSecondary : VerdantColors.warmSand,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
               ),
-              Text(price, style: VerdantTypography.titleMedium),
+              Text(price, style: theme.textTheme.titleMedium),
             ],
           ),
-          const SizedBox(height: VerdantSpacing.gap),
-          Text(service, style: VerdantTypography.titleLarge),
+          const SizedBox(height: EnterpriseSpacing.gap * 1.5),
+          Text(service, style: theme.textTheme.titleLarge),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Icon(Icons.calendar_today_outlined, size: 16, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+              const SizedBox(width: 8),
+              Text(date, style: theme.textTheme.bodyMedium),
+            ],
+          ),
           const SizedBox(height: 4),
-          Text(date, style: VerdantTypography.bodyLarge),
-          const SizedBox(height: 4),
-          Text(vehicle, style: VerdantTypography.bodyMedium),
+          Row(
+            children: [
+              Icon(Icons.directions_car_outlined, size: 16, color: theme.colorScheme.onSurface.withOpacity(0.6)),
+              const SizedBox(width: 8),
+              Text(vehicle, style: theme.textTheme.bodyMedium),
+            ],
+          ),
         ],
       ),
     );
