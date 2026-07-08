@@ -20,4 +20,8 @@ public class SecurityUtils {
         if (mockWasherId.get() != null) return mockWasherId.get();
         return UUID.fromString("11111111-1111-1111-1111-111111111111");
     }
+
+    public static boolean hasRole(String role) {
+        return false; // Mock implementation
+    }
 }
