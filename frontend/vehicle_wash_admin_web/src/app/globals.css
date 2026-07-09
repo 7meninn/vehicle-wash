@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-fira), ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 24 9% 4%; /* #0C0A09 */
+    --foreground: 60 5% 96%; /* #F6F6F6 */
   }
 }
 
@@ -18,16 +18,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.01);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Base transitions */
@@ -38,5 +38,5 @@
 }
 
 .glass-panel {
-  @apply bg-slate-900/50 backdrop-blur-xl border border-white/10 shadow-2xl;
+  @apply bg-[#110f0e]/60 backdrop-blur-2xl border border-white/5 shadow-2xl shadow-black/50;
 }

@@ -4,7 +4,7 @@ import {
   Car, 
   CheckCircle, 
   AlertCircle,
-  IndianRupee,
+  DollarSign,
   CalendarDays
 } from "lucide-react";
 
@@ -32,10 +32,10 @@ export default function Dashboard() {
     },
     {
       title: "Today's Revenue",
-      value: "₹28,450.75",
+      value: "$28,450.75",
       trend: "+18.2%",
       isPositive: true,
-      icon: IndianRupee,
+      icon: DollarSign,
       color: "text-green-400",
       bg: "bg-green-400/10",
       border: "border-green-400/20"
@@ -46,9 +46,9 @@ export default function Dashboard() {
       trend: "-2.5%",
       isPositive: true,
       icon: AlertCircle,
-      color: "text-orange-400",
-      bg: "bg-orange-400/10",
-      border: "border-orange-400/20"
+      color: "text-amber-400",
+      bg: "bg-amber-400/10",
+      border: "border-amber-400/20"
     }
   ];
 
@@ -57,9 +57,9 @@ export default function Dashboard() {
       <header className="flex justify-between items-end">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard Overview</h1>
-          <p className="text-gray-400 mt-2">Welcome back, here's what's happening today.</p>
+          <p className="text-stone-400 mt-2">Welcome back, here's what's happening today.</p>
         </div>
-        <div className="flex items-center space-x-2 text-sm text-gray-400 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+        <div className="flex items-center space-x-2 text-sm text-stone-400 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
           <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
           <span>System Normal</span>
         </div>
@@ -85,7 +85,7 @@ export default function Dashboard() {
               </div>
               
               <div>
-                <p className="text-sm font-medium text-gray-400 mb-1">{kpi.title}</p>
+                <p className="text-sm font-medium text-stone-400 mb-1">{kpi.title}</p>
                 <h3 className="text-3xl font-bold text-white tracking-tight">{kpi.value}</h3>
               </div>
             </div>
@@ -98,26 +98,26 @@ export default function Dashboard() {
         <div className="lg:col-span-2 glass-panel rounded-2xl p-6 border-white/10">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-semibold">Recent Bookings</h2>
-            <button className="text-sm text-blue-400 hover:text-blue-300 transition-colors">View All</button>
+            <button className="text-sm text-amber-500 hover:text-amber-400 transition-colors">View All</button>
           </div>
           
           <div className="space-y-4">
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-transparent hover:border-white/5">
                 <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                    <Car className="w-5 h-5 text-blue-400" />
+                  <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center">
+                    <Car className="w-5 h-5 text-amber-500" />
                   </div>
                   <div>
                     <p className="text-sm font-medium text-white">Booking #BK-{1000 + i}</p>
-                    <p className="text-xs text-gray-400">Hatchback Wash • 2 mins ago</p>
+                    <p className="text-xs text-stone-400">Exterior Wash • 2 mins ago</p>
                   </div>
                 </div>
                 
                 <div className="flex items-center space-x-6">
                   <div className="text-right">
-                    <p className="text-sm font-medium text-white">₹499.00</p>
-                    <p className="text-xs text-gray-400">Card Payment</p>
+                    <p className="text-sm font-medium text-white">$49.00</p>
+                    <p className="text-xs text-stone-400">Card Payment</p>
                   </div>
                   <div className="px-3 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/20 text-xs font-medium flex items-center space-x-1">
                     <CheckCircle className="w-3 h-3" />
@@ -137,21 +137,21 @@ export default function Dashboard() {
           
           <div className="space-y-5">
             {[
-              { name: 'Rahul Sharma', rating: '4.91', jobs: 427, img: 'bg-blue-400' },
-              { name: 'Amit Kumar', rating: '4.88', jobs: 382, img: 'bg-purple-400' },
-              { name: 'Sunil Singh', rating: '4.85', jobs: 315, img: 'bg-green-400' },
+              { name: 'Michael Chen', rating: '4.91', jobs: 427, img: 'bg-amber-600' },
+              { name: 'Sarah Davis', rating: '4.88', jobs: 382, img: 'bg-stone-600' },
+              { name: 'John Smith', rating: '4.85', jobs: 315, img: 'bg-amber-800' },
             ].map((washer, idx) => (
               <div key={idx} className="flex items-center justify-between group">
                 <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 rounded-full ${washer.img} flex items-center justify-center text-slate-900 font-bold shadow-lg`}>
+                  <div className={`w-10 h-10 rounded-full ${washer.img} flex items-center justify-center text-white font-bold shadow-lg`}>
                     {washer.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white group-hover:text-blue-400 transition-colors">{washer.name}</p>
-                    <p className="text-xs text-gray-400">{washer.jobs} Jobs completed</p>
+                    <p className="text-sm font-medium text-white group-hover:text-amber-500 transition-colors">{washer.name}</p>
+                    <p className="text-xs text-stone-400">{washer.jobs} Jobs completed</p>
                   </div>
                 </div>
-                <div className="flex items-center space-x-1 bg-yellow-500/10 px-2 py-1 rounded border border-yellow-500/20 text-yellow-400">
+                <div className="flex items-center space-x-1 bg-amber-500/10 px-2 py-1 rounded border border-amber-500/20 text-amber-500">
                   <span className="text-xs font-bold">{washer.rating}</span>
                   <span className="text-[10px]">★</span>
                 </div>

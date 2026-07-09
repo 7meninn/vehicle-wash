@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Fira_Sans } from "next/font/google";
 import "./globals.css";
 import { Sidebar } from "@/components/layout/Sidebar";
 
-const inter = Inter({ subsets: ["latin"] });
+const firaSans = Fira_Sans({ 
+  subsets: ["latin"], 
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-fira'
+});
 
 export const metadata: Metadata = {
   title: "Vehicle Wash Admin",
-  description: "Admin portal for Vehicle Wash Marketplace",
+  description: "Enterprise Admin Portal for Vehicle Wash Marketplace",
 };
 
 export default function RootLayout({
@@ -18,12 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.className} bg-slate-950 text-slate-50 min-h-screen antialiased flex selection:bg-blue-500/30`}
+        className={`${firaSans.className} bg-[#0C0A09] text-stone-50 min-h-screen antialiased flex selection:bg-amber-500/30`}
       >
-        {/* Abstract Background Elements */}
-        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-          <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-blue-900/20 blur-[120px]" />
-          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-900/20 blur-[120px]" />
+        {/* Premium Background Elements */}
+        <div className="fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-[#0C0A09]">
+          <div className="absolute top-0 left-0 w-full h-[500px] bg-gradient-to-b from-amber-900/10 to-transparent" />
+          <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-amber-600/5 blur-[150px]" />
         </div>
         
         <Sidebar />
