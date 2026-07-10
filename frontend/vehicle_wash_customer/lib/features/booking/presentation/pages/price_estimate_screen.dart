@@ -1,9 +1,60 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import '../../providers/booking_provider.dart';
 
-class PriceEstimateScreen extends StatelessWidget {
+class PriceEstimateScreen extends ConsumerStatefulWidget {
   const PriceEstimateScreen({super.key});
+
+  @override
+  ConsumerState<PriceEstimateScreen> createState() => _PriceEstimateScreenState();
+}
+
+class _PriceEstimateScreenState extends ConsumerState<PriceEstimateScreen> {
+  bool _isLoading = true;
+  String? _error;
+  Map<String, dynamic>? _priceEstimate;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPrice();
+  }
+
+  Future<void> _fetchPrice() async {
+    final state = ref.read(bookingProvider);
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8080/api/v1/bookings/calculate-price'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'vehicleId': state.vehicleId ?? 'v1',
+          'addressId': state.addressId ?? 'a1',
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        setState(() {
+          _priceEstimate = data;
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _error = 'Failed to calculate price.';
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _error = e.toString();
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,39 +77,51 @@ class PriceEstimateScreen extends StatelessWidget {
               ),
               const SizedBox(height: VerdantSpacing.sectionPadding / 2),
               
-              VerdantCard(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  children: [
-                    _buildRow('Base Wash Price', '\$45.00'),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    _buildRow('Travel Charge', '\$5.00'),
-                    const SizedBox(height: VerdantSpacing.gap),
-                    _buildRow('GST (18%)', '\$9.00'),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: VerdantSpacing.gap),
-                      child: Divider(),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Total', style: VerdantTypography.titleLarge),
-                        Text(
-                          '\$59.00',
-                          style: VerdantTypography.headlineLarge.copyWith(color: VerdantColors.warmSand),
-                        ),
-                      ],
-                    ),
-                  ],
+              if (_isLoading)
+                const Center(child: CircularProgressIndicator())
+              else if (_error != null)
+                Center(child: Text(_error!, style: const TextStyle(color: Colors.red)))
+              else
+                VerdantCard(
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    children: [
+                      _buildRow('Base Wash Price', '₹${_priceEstimate?['basePrice'] ?? 0}'),
+                      const SizedBox(height: VerdantSpacing.gap),
+                      _buildRow('Travel Charge', '₹${_priceEstimate?['travelCharge'] ?? 0}'),
+                      const SizedBox(height: VerdantSpacing.gap),
+                      _buildRow('Distance', '${_priceEstimate?['distanceKm'] ?? 0} km'),
+                      const SizedBox(height: VerdantSpacing.gap),
+                      _buildRow('GST (18%)', '₹${_priceEstimate?['gst'] ?? 0}'),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: VerdantSpacing.gap),
+                        child: Divider(),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Total', style: VerdantTypography.titleLarge),
+                          Text(
+                            '₹${_priceEstimate?['totalPrice'] ?? 0}',
+                            style: VerdantTypography.headlineLarge.copyWith(color: VerdantColors.warmSand),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
               
               const Spacer(),
               VerdantButton(
                 label: 'Confirm Booking',
-                onPressed: () {
-                  context.push('/payment/mock');
-                },
+                onPressed: _isLoading || _error != null
+                    ? () {}
+                    : () {
+                        context.push('/payment/mock');
+                      },
+                variant: _isLoading || _error != null
+                    ? VerdantButtonVariant.secondary
+                    : VerdantButtonVariant.primary,
               ),
             ],
           ),

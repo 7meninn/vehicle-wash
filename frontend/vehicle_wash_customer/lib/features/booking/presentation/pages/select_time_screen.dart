@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
 
-class SelectTimeScreen extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/booking_provider.dart';
+
+class SelectTimeScreen extends ConsumerStatefulWidget {
   const SelectTimeScreen({super.key});
 
   @override
-  State<SelectTimeScreen> createState() => _SelectTimeScreenState();
+  ConsumerState<SelectTimeScreen> createState() => _SelectTimeScreenState();
 }
 
-class _SelectTimeScreenState extends State<SelectTimeScreen> {
+class _SelectTimeScreenState extends ConsumerState<SelectTimeScreen> {
   // Mock data
   final List<String> _dates = ['Today, Oct 24', 'Tomorrow, Oct 25', 'Friday, Oct 26'];
   final List<String> _times = ['09:00 AM', '11:00 AM', '01:00 PM', '03:00 PM'];
@@ -19,6 +22,10 @@ class _SelectTimeScreenState extends State<SelectTimeScreen> {
 
   void _handleNext() {
     if (_selectedDate != null && _selectedTime != null) {
+      ref.read(bookingProvider.notifier).setTime(
+        "2026-08-12", // mock date
+        "slot_123", // mock slotId
+      );
       context.push('/booking/estimate');
     }
   }

@@ -1,9 +1,65 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import '../../../booking/providers/booking_provider.dart';
 
-class MockPaymentScreen extends StatelessWidget {
+class MockPaymentScreen extends ConsumerStatefulWidget {
   const MockPaymentScreen({super.key});
+
+  @override
+  ConsumerState<MockPaymentScreen> createState() => _MockPaymentScreenState();
+}
+
+class _MockPaymentScreenState extends ConsumerState<MockPaymentScreen> {
+  bool _isLoading = false;
+
+  Future<void> _handlePaymentSuccess() async {
+    setState(() {
+      _isLoading = true;
+    });
+    
+    final state = ref.read(bookingProvider);
+
+    try {
+      final response = await http.post(
+        Uri.parse('http://localhost:8080/api/v1/bookings'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'vehicleId': state.vehicleId ?? 'v1',
+          'addressId': state.addressId ?? 'a1',
+          'bookingDate': state.bookingDate ?? '2026-08-12',
+          'slotId': state.slotId ?? 's1',
+        }),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (mounted) {
+          context.push('/booking/confirmed');
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to create booking: ${response.statusCode}')),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +90,25 @@ class MockPaymentScreen extends StatelessWidget {
               ),
               const SizedBox(height: VerdantSpacing.sectionPadding),
               
-              VerdantButton(
-                label: 'Pay Success',
-                onPressed: () {
-                  context.push('/booking/confirmed');
-                },
-              ),
-              const SizedBox(height: VerdantSpacing.gap),
-              VerdantButton(
-                label: 'Pay Fail',
-                variant: VerdantButtonVariant.secondary,
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Payment Failed. Please try again.')),
-                  );
-                  context.pop();
-                },
-              ),
+              if (_isLoading)
+                const Center(child: CircularProgressIndicator())
+              else ...[
+                VerdantButton(
+                  label: 'Pay Success',
+                  onPressed: _handlePaymentSuccess,
+                ),
+                const SizedBox(height: VerdantSpacing.gap),
+                VerdantButton(
+                  label: 'Pay Fail',
+                  variant: VerdantButtonVariant.secondary,
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Payment Failed. Please try again.')),
+                    );
+                    context.pop();
+                  },
+                ),
+              ],
             ],
           ),
         ),

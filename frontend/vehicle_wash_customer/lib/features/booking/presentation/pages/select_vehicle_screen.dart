@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/booking_provider.dart';
 
-class SelectVehicleScreen extends StatefulWidget {
+class SelectVehicleScreen extends ConsumerStatefulWidget {
   const SelectVehicleScreen({super.key});
 
   @override
-  State<SelectVehicleScreen> createState() => _SelectVehicleScreenState();
+  ConsumerState<SelectVehicleScreen> createState() => _SelectVehicleScreenState();
 }
 
-class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
+class _SelectVehicleScreenState extends ConsumerState<SelectVehicleScreen> {
   // Mock data
   final List<Map<String, String>> _vehicles = [
     {'id': '1', 'name': 'Toyota Camry', 'plate': 'ABC-1234'},
@@ -19,6 +21,7 @@ class _SelectVehicleScreenState extends State<SelectVehicleScreen> {
 
   void _handleNext() {
     if (_selectedVehicleId != null) {
+      ref.read(bookingProvider.notifier).setVehicleId(_selectedVehicleId!);
       context.push('/booking/select-address');
     }
   }
