@@ -6,6 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:http/http.dart' as http;
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import 'package:vehicle_wash_shared/vehicle_wash_shared.dart';
 import '../../providers/booking_provider.dart';
 
 class SelectAddressScreen extends ConsumerStatefulWidget {
@@ -34,11 +35,14 @@ class _SelectAddressScreenState extends ConsumerState<SelectAddressScreen> {
     });
 
     try {
+      final token = await ref.read(secureStorageProvider).read(key: 'access_token');
       // Create address
-      // NOTE: In a real app we'd get the auth token from storage
       final response = await http.post(
         Uri.parse('http://localhost:8080/api/v1/customers/me/addresses'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          if (token != null) 'Authorization': 'Bearer $token',
+        },
         body: jsonEncode({
           'label': 'Dropped Pin',
           'address': 'Custom Location',

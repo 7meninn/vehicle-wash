@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 import 'package:vehicle_wash_design_system/vehicle_wash_design_system.dart';
+import 'package:vehicle_wash_shared/vehicle_wash_shared.dart';
 import '../../../booking/providers/booking_provider.dart';
 
 class MockPaymentScreen extends ConsumerStatefulWidget {
@@ -24,12 +25,16 @@ class _MockPaymentScreenState extends ConsumerState<MockPaymentScreen> {
     final state = ref.read(bookingProvider);
 
     try {
+      final token = await ref.read(secureStorageProvider).read(key: 'access_token');
       final response = await http.post(
         Uri.parse('http://localhost:8080/api/v1/bookings'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          if (token != null) 'Authorization': 'Bearer $token',
+        },
         body: jsonEncode({
-          'vehicleId': state.vehicleId ?? 'v1',
-          'addressId': state.addressId ?? 'a1',
+          'vehicleId': state.vehicleId,
+          'addressId': state.addressId,
           'bookingDate': state.bookingDate ?? '2026-08-12',
           'slotId': state.slotId ?? 's1',
         }),
